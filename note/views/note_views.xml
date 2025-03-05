@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Action Window for All Notes -->
+    <record id="action_note_management" model="ir.actions.act_window">
+        <field name="name">Manage Notes</field>
+        <field name="res_model">note.management</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Action for Active Notes -->
+    <record id="action_active_notes" model="ir.actions.act_window">
+        <field name="name">Active Notes</field>
+        <field name="res_model">note.management</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[("status", "=", "active")]</field>
+    </record>
+
+    <!-- Action for Draft Notes -->
+    <record id="action_draft_notes" model="ir.actions.act_window">
+        <field name="name">Draft Notes</field>
+        <field name="res_model">note.management</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[("status", "=", "draft")]</field>
+    </record>
+
+    <!-- Action for Completed Notes -->
+    <record id="action_completed_notes" model="ir.actions.act_window">
+        <field name="name">Completed Notes</field>
+        <field name="res_model">note.management</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[("status", "=", "completed")]</field>
+    </record>
+
+    <!-- Form View with Chatter -->
+<record id="view_note_form" model="ir.ui.view">
+    <field name="name">note.form</field>
+    <field name="model">note.management</field>
+    <field name="arch" type="xml">
+        <form>
+            <sheet>
+                <group>
+                    <field name="title"/>
+                    <field name="description"/>
+                    <field name="status"/>
+                </group>
+                <div class="oe_chatter">
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </sheet>
+        </form>
+    </field>
+</record>
+    <!-- Tree View -->
+    <record id="view_note_tree" model="ir.ui.view">
+        <field name="name">note.tree</field>
+        <field name="model">note.management</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="title"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Main Menu -->
+    <menuitem id="menu_note_root" name="Notes" sequence="10"/>
+
+    <!-- Submenus for different note statuses -->
+    <menuitem id="menu_note_management" name="Manage Notes" parent="menu_note_root" action="action_note_management" sequence="15"/>
+    <menuitem id="menu_active_notes" name="Active Notes" parent="menu_note_root" action="action_active_notes" sequence="16"/>
+    <menuitem id="menu_draft_notes" name="Draft Notes" parent="menu_note_root" action="action_draft_notes" sequence="17"/>
+    <menuitem id="menu_completed_notes" name="Completed Notes" parent="menu_note_root" action="action_completed_notes" sequence="18"/>
+    
+    <!-- Categories Submenu -->
+    <menuitem id="menu_note_categories" name="Categories" parent="menu_note_root" sequence="20"/>
+
+    <!-- Archived Notes -->
+    <menuitem id="menu_note_archived" name="Archived Notes" parent="menu_note_root" sequence="30"/>
+</odoo>
